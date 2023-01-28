@@ -1,0 +1,64 @@
+field = ["", "1", "2", "3",
+         "4", "5", "6",
+         "7", "8", "9"]
+
+run = True
+
+
+def check_win():
+        if field[1] == field[2] == field[3] or field[1] == field[4] == field[7] or field[1] == field[5] == field[9]:
+            return field[1] + "has won"
+        elif field[4] == field[5] == field[6] or field[2] == field[5] == field[8] or field[3] == field[5] == field[7]:
+            return field[5] + "has won"
+        elif field[7] == field[8] == field[9] or field[3] == field[6] == field[9]:
+            return field[9] + "has won"
+
+
+def print_field():
+    print(field[1] + "|" + field[2] + "|" + field[3])
+    print(field[4] + "|" + field[5] + "|" + field[6])
+    print(field[7] + "|" + field[8] + "|" + field[9])
+
+
+def change_player():
+    global run
+    while run:
+        counter = 1
+        if counter % 2 == 0:
+            if check_win():
+                check_win()
+                run = False
+                continue
+
+            else:
+             print(zug)
+             field[zug] = "."
+             print_field()
+             counter += 1
+             zug = int(input("Please enter the field to be filled: "))
+             change_player()
+
+        else:
+            if check_win():
+                check_win()
+                run = False
+                continue
+            else:
+                print(zug)
+                field[zug] = "X"
+                print_field()
+                counter += 1
+                zug = int(input("Please enter the field to be filled: "))
+                change_player()
+
+
+def main_programme():
+    zug = int(input("Please enter the field to be filled: "))
+    if zug >= 10 or zug <= 0:
+        print("Make sure your inserts a number between one and nine")
+        main_programme()
+    else:
+        change_player()
+
+
+main_programme()
